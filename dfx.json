@@ -3,7 +3,7 @@
     "evm_rpc": {
       "candid": "https://github.com/internet-computer-protocol/evm-rpc-canister/releases/latest/download/evm_rpc.did",
       "declarations": {
-        "output": "packages/evm_rpc/declarations"
+        "output": "src/evm_rpc/declarations"
       },
       "init_arg": "(record { nodesInSubnet = 28 })",
       "remote": {
