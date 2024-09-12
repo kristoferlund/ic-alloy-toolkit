@@ -1,0 +1,23 @@
+{
+  "canisters": {
+    "backend": {
+      "candid": "src/backend/backend.did",
+      "declarations": {
+        "output": "src/backend/declarations"
+      },
+      "package": "backend",
+      "type": "rust"
+    },
+    "frontend": {
+      "build": ["pnpm run build"],
+      "declarations": {
+        "output": "src/frontend/declarations"
+      },
+      "dependencies": ["backend"],
+      "source": ["dist"],
+      "type": "assets"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
