@@ -35,7 +35,7 @@ function App() {
         <a href="https://alloy.rs" target="_blank">
           <img src={alloyLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://internetcomputer.org" target="_blank">
           <img src={icLogo} className="logo" alt="React logo" />
         </a>
       </div>
