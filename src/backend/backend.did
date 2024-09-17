@@ -1,3 +1,4 @@
 service : {
     "get_latest_block": () -> (variant { Ok : text; Err : text });
+    "get_balance": (text) -> (variant { Ok : text; Err : text });
 }
