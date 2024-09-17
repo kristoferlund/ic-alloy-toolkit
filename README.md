@@ -1,4 +1,4 @@
-# Alloy + ICP
+# Alloy + ICP Demo
 
 Demo of an ICP canister plus frontend that uses Alloy to interact with Ethereum. Alloy is the next generation of Ethereum support libraries, written in Rust and designed for scalability and performance.
 
