@@ -1,4 +1,3 @@
 service : {
-    "greet": (text) -> (text) query;
-    "get_latest_block": () -> (text);
+    "get_latest_block": () -> (variant { Ok : text; Err : text });
 }
