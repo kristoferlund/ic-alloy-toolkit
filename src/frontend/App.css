@@ -20,6 +20,14 @@
 
 .card {
   padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 450px;
+  border: #ffffff20 1px solid;
+  border-radius: 10px;
+  margin-bottom: 2em;
 }
 
 .read-the-docs {

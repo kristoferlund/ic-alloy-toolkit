@@ -4,20 +4,30 @@ import alloyLogo from "./assets/alloy.png";
 import { backend } from "../backend/declarations";
 import icLogo from "./assets/ic.svg";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 function App() {
+  const [ethAddress, setEthAddress] = useState<string>("");
+
   const {
     data: latestBlockResult,
-    isFetching,
-    refetch,
+    isFetching: isFetchingBlock,
+    refetch: refetchBlock,
   } = useQuery({
     queryKey: ["latestBlock"],
     queryFn: () => backend.get_latest_block(),
     enabled: false,
   });
 
-  console.log(latestBlockResult);
-  console.log(isFetching);
+  const {
+    data: accountBalanceResult,
+    isFetching: isFetchingAccountBalance,
+    refetch: refetchAccountBalance,
+  } = useQuery({
+    queryKey: ["accountBalance", ethAddress],
+    queryFn: () => backend.get_balance(ethAddress),
+    enabled: false,
+  });
 
   return (
     <>
@@ -32,11 +42,26 @@ function App() {
       <h1>Alloy + ICP</h1>
       <div className="card">
         <p>Request the latest block from Eth Sepolia.</p>
-        <button onClick={() => refetch()}>
-          {isFetching ? "Requesting…" : "get_latest_block()"}
+        <button onClick={() => refetchBlock()}>
+          {isFetchingBlock ? "Requesting…" : "get_latest_block()"}
         </button>
         {latestBlockResult && (
           <pre>{JSON.stringify(latestBlockResult, null, 2)}</pre>
+        )}
+      </div>
+      <div className="card">
+        <p>Request the balance of an ETH account.</p>
+        <input
+          type="text"
+          placeholder="ETH address"
+          onChange={(e) => setEthAddress(e.target.value)}
+          value={ethAddress}
+        />
+        <button onClick={() => refetchAccountBalance()}>
+          {isFetchingAccountBalance ? "Requesting…" : "get_balance(ethAddress)"}
+        </button>
+        {accountBalanceResult && (
+          <pre>{JSON.stringify(accountBalanceResult, null, 2)}</pre>
         )}
       </div>
     </>

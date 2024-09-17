@@ -45,6 +45,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  width: 100%;
 }
 button:hover {
   border-color: #646cff;
@@ -52,6 +53,19 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+input {
+  border-radius: 8px;
+  border: #ffffff20 1px solid;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #242424;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 @media (prefers-color-scheme: light) {
@@ -71,4 +85,10 @@ pre {
   text-align: left;
   background-color: #666666;
   padding: 20px;
+  margin: 0;
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
