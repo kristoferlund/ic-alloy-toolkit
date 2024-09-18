@@ -1,14 +1,15 @@
 use alloy::{
     primitives::Address,
     providers::{Provider, ProviderBuilder},
-    transports::icp::{EthSepoliaService, RpcService},
+    transports::icp::{EthSepoliaService, IcpConfig, RpcService},
 };
 
 const RPC_SERVICE: RpcService = RpcService::EthSepolia(EthSepoliaService::Alchemy);
 
 #[ic_cdk::update]
 async fn get_latest_block() -> Result<String, String> {
-    let provider = ProviderBuilder::new().on_icp(RPC_SERVICE);
+    let config = IcpConfig::new(RPC_SERVICE);
+    let provider = ProviderBuilder::new().on_icp(config);
     let result = provider.get_block_number().await;
 
     match result {
@@ -20,7 +21,8 @@ async fn get_latest_block() -> Result<String, String> {
 #[ic_cdk::update]
 async fn get_balance(address: String) -> Result<String, String> {
     let address = address.parse::<Address>().map_err(|e| e.to_string())?;
-    let provider = ProviderBuilder::new().on_icp(RPC_SERVICE);
+    let config = IcpConfig::new(RPC_SERVICE);
+    let provider = ProviderBuilder::new().on_icp(config);
     let result = provider.get_balance(address).await;
 
     match result {
