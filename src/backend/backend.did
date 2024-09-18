@@ -1,6 +1,6 @@
 type Result = variant { Ok : text; Err : text };
 service : {
   get_balance : (text) -> (Result);
-  get_batch_balances : (text) -> (Result);
+  get_batch_balances : (vec text) -> (Result);
   get_latest_block : () -> (Result);
 }
