@@ -5,6 +5,7 @@ use alloy::{
     rpc::client::{ClientBuilder, IcpClient},
     transports::icp::{EthSepoliaService, IcpConfig, RpcService},
 };
+use ic_cdk::export_candid;
 
 const RPC_SERVICE: RpcService = RpcService::EthSepolia(EthSepoliaService::Alchemy);
 
@@ -54,3 +55,5 @@ async fn get_batch_balances(address: String) -> Result<String, String> {
 
     Ok("todo".to_string())
 }
+
+export_candid!();
