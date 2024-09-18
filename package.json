@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "did": "candid-extractor target/wasm32-unknown-unknown/release/backend.wasm > src/backend/backend.did",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
