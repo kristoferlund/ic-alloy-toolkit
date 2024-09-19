@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const GetlatestblockLazyImport = createFileRoute('/get_latest_block')()
+const GetbatchbalancesLazyImport = createFileRoute('/get_batch_balances')()
 const GetbalanceLazyImport = createFileRoute('/get_balance')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -27,6 +28,13 @@ const GetlatestblockLazyRoute = GetlatestblockLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./routes/get_latest_block.lazy').then((d) => d.Route),
+)
+
+const GetbatchbalancesLazyRoute = GetbatchbalancesLazyImport.update({
+  path: '/get_batch_balances',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/get_batch_balances.lazy').then((d) => d.Route),
 )
 
 const GetbalanceLazyRoute = GetbalanceLazyImport.update({
@@ -57,6 +65,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetbalanceLazyImport
       parentRoute: typeof rootRoute
     }
+    '/get_batch_balances': {
+      id: '/get_batch_balances'
+      path: '/get_batch_balances'
+      fullPath: '/get_batch_balances'
+      preLoaderRoute: typeof GetbatchbalancesLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/get_latest_block': {
       id: '/get_latest_block'
       path: '/get_latest_block'
@@ -72,12 +87,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
+  '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
+  '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
 }
 
@@ -85,27 +102,35 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
+  '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/get_balance' | '/get_latest_block'
+  fullPaths: '/' | '/get_balance' | '/get_batch_balances' | '/get_latest_block'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/get_balance' | '/get_latest_block'
-  id: '__root__' | '/' | '/get_balance' | '/get_latest_block'
+  to: '/' | '/get_balance' | '/get_batch_balances' | '/get_latest_block'
+  id:
+    | '__root__'
+    | '/'
+    | '/get_balance'
+    | '/get_batch_balances'
+    | '/get_latest_block'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   GetbalanceLazyRoute: typeof GetbalanceLazyRoute
+  GetbatchbalancesLazyRoute: typeof GetbatchbalancesLazyRoute
   GetlatestblockLazyRoute: typeof GetlatestblockLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   GetbalanceLazyRoute: GetbalanceLazyRoute,
+  GetbatchbalancesLazyRoute: GetbatchbalancesLazyRoute,
   GetlatestblockLazyRoute: GetlatestblockLazyRoute,
 }
 
@@ -123,6 +148,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/get_balance",
+        "/get_batch_balances",
         "/get_latest_block"
       ]
     },
@@ -131,6 +157,9 @@ export const routeTree = rootRoute
     },
     "/get_balance": {
       "filePath": "get_balance.lazy.tsx"
+    },
+    "/get_batch_balances": {
+      "filePath": "get_batch_balances.lazy.tsx"
     },
     "/get_latest_block": {
       "filePath": "get_latest_block.lazy.tsx"
