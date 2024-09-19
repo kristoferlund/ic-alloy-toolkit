@@ -1,7 +1,8 @@
-import react from "@vitejs/plugin-react";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import { defineConfig } from "vite";
-import environment from "vite-plugin-environment";
 import dotenv from "dotenv";
+import environment from "vite-plugin-environment";
+import viteReact from "@vitejs/plugin-react";
 
 dotenv.config({ path: "../../.env" });
 
@@ -25,7 +26,11 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
+    TanStackRouterVite({
+      routesDirectory: "src/frontend/routes",
+      generatedRouteTree: "src/frontend/routeTree.gen.ts",
+    }),
+    viteReact(),
     environment("all", { prefix: "CANISTER_" }),
     environment("all", { prefix: "DFX_" }),
   ],
