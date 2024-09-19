@@ -1,6 +1,5 @@
 import { Outlet, createRootRoute } from "@tanstack/react-router";
 
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import alloyLogo from "../assets/alloy.png";
 import icLogo from "../assets/ic.svg";
 
@@ -21,7 +20,6 @@ function Root() {
       </div>
       <h1>Alloy + ICP</h1>
       <Outlet />
-      <TanStackRouterDevtools />
     </main>
   );
 }
