@@ -5,13 +5,13 @@ use alloy::{
     transports::icp::IcpConfig,
 };
 
-use crate::RPC_SERVICE;
+use crate::get_rpc_service;
 
 #[ic_cdk::update]
 async fn get_batch_balances(addresses: Vec<String>) -> Result<String, String> {
-    let config = IcpConfig::new(RPC_SERVICE);
+    let rpc_service = get_rpc_service();
+    let config = IcpConfig::new(rpc_service);
     let client: IcpClient = ClientBuilder::default().icp(config);
-
     let mut batch = client.new_icp_batch();
     let tag = BlockNumberOrTag::Latest;
     let mut get_balance_calls = Vec::new();

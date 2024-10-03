@@ -7,6 +7,9 @@ export const Route = createLazyFileRoute("/")({
 function Index() {
   return (
     <div className="menu">
+      <Link to="/get_address">
+        <button>get_address()</button>
+      </Link>
       <Link to="/get_latest_block">
         <button>get_latest_block()</button>
       </Link>
@@ -15,6 +18,12 @@ function Index() {
       </Link>
       <Link to="/get_batch_balances">
         <button>get_batch_balances([address1, address2])</button>
+      </Link>
+      <Link to="/sign_message">
+        <button>sign_message(message)</button>
+      </Link>
+      <Link to="/send_eth_with_fillers">
+        <button>send_eth_with_fillers()</button>
       </Link>
     </div>
   );

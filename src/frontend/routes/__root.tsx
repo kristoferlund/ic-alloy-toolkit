@@ -11,10 +11,10 @@ function Root() {
   return (
     <main>
       <div>
-        <a href="https://alloy.rs" target="_blank">
+        <a href="https://alloy.rs" target="_blank" rel="noreferrer">
           <img src={alloyLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://internetcomputer.org" target="_blank">
+        <a href="https://internetcomputer.org" target="_blank" rel="noreferrer">
           <img src={icLogo} className="logo" alt="React logo" />
         </a>
       </div>

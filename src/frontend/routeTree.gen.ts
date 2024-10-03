@@ -16,12 +16,27 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const SignmessageLazyImport = createFileRoute('/sign_message')()
+const SendethwithfillersLazyImport = createFileRoute('/send_eth_with_fillers')()
 const GetlatestblockLazyImport = createFileRoute('/get_latest_block')()
 const GetbatchbalancesLazyImport = createFileRoute('/get_batch_balances')()
 const GetbalanceLazyImport = createFileRoute('/get_balance')()
+const GetaddressLazyImport = createFileRoute('/get_address')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const SignmessageLazyRoute = SignmessageLazyImport.update({
+  path: '/sign_message',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/sign_message.lazy').then((d) => d.Route))
+
+const SendethwithfillersLazyRoute = SendethwithfillersLazyImport.update({
+  path: '/send_eth_with_fillers',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/send_eth_with_fillers.lazy').then((d) => d.Route),
+)
 
 const GetlatestblockLazyRoute = GetlatestblockLazyImport.update({
   path: '/get_latest_block',
@@ -42,6 +57,11 @@ const GetbalanceLazyRoute = GetbalanceLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/get_balance.lazy').then((d) => d.Route))
 
+const GetaddressLazyRoute = GetaddressLazyImport.update({
+  path: '/get_address',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/get_address.lazy').then((d) => d.Route))
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -56,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/get_address': {
+      id: '/get_address'
+      path: '/get_address'
+      fullPath: '/get_address'
+      preLoaderRoute: typeof GetaddressLazyImport
       parentRoute: typeof rootRoute
     }
     '/get_balance': {
@@ -79,6 +106,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetlatestblockLazyImport
       parentRoute: typeof rootRoute
     }
+    '/send_eth_with_fillers': {
+      id: '/send_eth_with_fillers'
+      path: '/send_eth_with_fillers'
+      fullPath: '/send_eth_with_fillers'
+      preLoaderRoute: typeof SendethwithfillersLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign_message': {
+      id: '/sign_message'
+      path: '/sign_message'
+      fullPath: '/sign_message'
+      preLoaderRoute: typeof SignmessageLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -86,52 +127,84 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/get_address': typeof GetaddressLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
+  '/sign_message': typeof SignmessageLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/get_address': typeof GetaddressLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
+  '/sign_message': typeof SignmessageLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/get_address': typeof GetaddressLazyRoute
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
+  '/sign_message': typeof SignmessageLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/get_balance' | '/get_batch_balances' | '/get_latest_block'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/get_balance' | '/get_batch_balances' | '/get_latest_block'
-  id:
-    | '__root__'
+  fullPaths:
     | '/'
+    | '/get_address'
     | '/get_balance'
     | '/get_batch_balances'
     | '/get_latest_block'
+    | '/send_eth_with_fillers'
+    | '/sign_message'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/get_address'
+    | '/get_balance'
+    | '/get_batch_balances'
+    | '/get_latest_block'
+    | '/send_eth_with_fillers'
+    | '/sign_message'
+  id:
+    | '__root__'
+    | '/'
+    | '/get_address'
+    | '/get_balance'
+    | '/get_batch_balances'
+    | '/get_latest_block'
+    | '/send_eth_with_fillers'
+    | '/sign_message'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  GetaddressLazyRoute: typeof GetaddressLazyRoute
   GetbalanceLazyRoute: typeof GetbalanceLazyRoute
   GetbatchbalancesLazyRoute: typeof GetbatchbalancesLazyRoute
   GetlatestblockLazyRoute: typeof GetlatestblockLazyRoute
+  SendethwithfillersLazyRoute: typeof SendethwithfillersLazyRoute
+  SignmessageLazyRoute: typeof SignmessageLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  GetaddressLazyRoute: GetaddressLazyRoute,
   GetbalanceLazyRoute: GetbalanceLazyRoute,
   GetbatchbalancesLazyRoute: GetbatchbalancesLazyRoute,
   GetlatestblockLazyRoute: GetlatestblockLazyRoute,
+  SendethwithfillersLazyRoute: SendethwithfillersLazyRoute,
+  SignmessageLazyRoute: SignmessageLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -147,13 +220,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/get_address",
         "/get_balance",
         "/get_batch_balances",
-        "/get_latest_block"
+        "/get_latest_block",
+        "/send_eth_with_fillers",
+        "/sign_message"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/get_address": {
+      "filePath": "get_address.lazy.tsx"
     },
     "/get_balance": {
       "filePath": "get_balance.lazy.tsx"
@@ -163,6 +242,12 @@ export const routeTree = rootRoute
     },
     "/get_latest_block": {
       "filePath": "get_latest_block.lazy.tsx"
+    },
+    "/send_eth_with_fillers": {
+      "filePath": "send_eth_with_fillers.lazy.tsx"
+    },
+    "/sign_message": {
+      "filePath": "sign_message.lazy.tsx"
     }
   }
 }

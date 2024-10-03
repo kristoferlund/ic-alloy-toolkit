@@ -4,12 +4,13 @@ use alloy::{
     transports::icp::IcpConfig,
 };
 
-use crate::RPC_SERVICE;
+use crate::get_rpc_service;
 
 #[ic_cdk::update]
 async fn get_balance(address: String) -> Result<String, String> {
     let address = address.parse::<Address>().map_err(|e| e.to_string())?;
-    let config = IcpConfig::new(RPC_SERVICE);
+    let rpc_service = get_rpc_service();
+    let config = IcpConfig::new(rpc_service);
     let provider = ProviderBuilder::new().on_icp(config);
     let result = provider.get_balance(address).await;
 
