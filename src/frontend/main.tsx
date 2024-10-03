@@ -14,7 +14,17 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retryOnMount: false,
+      retry: false,
+      gcTime: Infinity,
+      staleTime: Infinity
+    }
+  }
+
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
