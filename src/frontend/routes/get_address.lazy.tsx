@@ -2,6 +2,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router'
 
 import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
+import Source from '../components/source'
 
 export const Route = createLazyFileRoute('/get_address')({
   component: Page,
@@ -31,6 +32,7 @@ function Page() {
         {addressResult && (
           <pre>{JSON.stringify(addressResult, null, 2)}</pre>
         )}
+        <Source file="get_address.rs" />
       </div>
     </>
   )

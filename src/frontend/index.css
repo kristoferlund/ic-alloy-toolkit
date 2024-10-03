@@ -146,3 +146,15 @@ main {
   flex-direction: column;
   gap: 1em;
 }
+
+.source {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+}
+
+.source img {
+  width: 25px;
+  height: 25px;
+}

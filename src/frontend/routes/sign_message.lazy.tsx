@@ -3,6 +3,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router'
 import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import Source from '../components/source'
 
 export const Route = createLazyFileRoute('/sign_message')({
   component: Page,
@@ -40,6 +41,7 @@ function Page() {
         {signatureResult && (
           <pre>{JSON.stringify(signatureResult, null, 2)}</pre>
         )}
+        <Source file='sign_message.rs' />
       </div>
     </>
   )

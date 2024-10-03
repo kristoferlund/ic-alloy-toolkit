@@ -2,6 +2,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router'
 
 import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
+import Source from '../components/source'
 
 export const Route = createLazyFileRoute('/send_eth_with_fillers')({
   component: Page,
@@ -31,6 +32,7 @@ function Page() {
           {isSendingTx ? 'Requesting…' : 'send_eth_with_fillers()'}
         </button>
         {txResult && <pre>{JSON.stringify(txResult, null, 2)}</pre>}
+        <Source file='send_eth_with_fillers.rs' />
       </div>
     </>
   )
