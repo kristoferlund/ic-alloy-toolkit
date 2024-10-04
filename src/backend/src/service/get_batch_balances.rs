@@ -12,7 +12,7 @@ async fn get_batch_balances(addresses: Vec<String>) -> Result<String, String> {
     let rpc_service = get_rpc_service();
     let config = IcpConfig::new(rpc_service);
     let client: IcpClient = ClientBuilder::default().icp(config);
-    let mut batch = client.new_icp_batch();
+    let mut batch = client.new_batch();
     let tag = BlockNumberOrTag::Latest;
     let mut get_balance_calls = Vec::new();
 
