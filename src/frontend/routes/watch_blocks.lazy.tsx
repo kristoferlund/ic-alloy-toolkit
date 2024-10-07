@@ -18,6 +18,14 @@ function Page() {
   })
 
   const {
+    data: pollCountResult,
+  } = useQuery({
+    queryKey: ['watch_blocks_poll_count'],
+    queryFn: () => backend.watch_blocks_poll_count(),
+    refetchInterval: 1000,
+  })
+
+  const {
     data: getResult,
   } = useQuery({
     queryKey: ['watch_blocks_get'],
@@ -46,18 +54,20 @@ function Page() {
   })
 
   const isPolling = isPollingResult && 'Ok' in isPollingResult && isPollingResult.Ok === true;
+  const pollCount = pollCountResult && 'Ok' in pollCountResult ? pollCountResult.Ok : 0;
 
+  console.log(pollCountResult);
   return (
     <>
       <Link to="/">
         <button> Menu</button>
       </Link>
       <div className="card">
-        <p>Watch block</p>
+        <p>Watch the EVM for the latest block numbers. Pushing the start button will tell the canister to create a poller that gets executed every 10 seconds.</p>
 
         <p>
           {isPolling ?
-            "🟢 Watching for blocks"
+            `🟢 Watching for blocks, ${pollCount}/10`
             :
             "🔴 Not watching for blocks"
           }
@@ -77,10 +87,12 @@ function Page() {
           <pre>{JSON.stringify(stopResult, null, 2)}</pre>
         )}
 
+        <p>Fetched block numbers, gets reset every time the start button is pushed.</p>
+
         {getResult && (
           <pre>{JSON.stringify(getResult, null, 2)}</pre>
         )}
-        <Source file="get_latest_block.rs" />
+        <Source file="watch_blocks.rs" />
       </div >
     </>
   )
