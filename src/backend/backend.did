@@ -1,4 +1,7 @@
 type Result = variant { Ok : text; Err : text };
+type Result_2 = variant { Ok : bool; Err : text };
+type Result_3 = variant { Ok : vec text; Err : text };
+
 service : {
   get_address : () -> (Result);
   get_balance : (text) -> (Result);
@@ -6,4 +9,9 @@ service : {
   get_latest_block : () -> (Result);
   send_eth_with_fillers : () -> (Result);
   sign_message : (text) -> (Result);
+  watch_contract_event : () -> (Result);
+  watch_blocks_start : () -> (Result);
+  watch_blocks_stop : () -> (Result);
+  watch_blocks_is_polling : () -> (Result_2) query;
+  watch_blocks_get : () -> (Result_3) query;
 }
