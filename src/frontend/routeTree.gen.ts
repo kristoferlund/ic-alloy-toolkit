@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const WatchblocksLazyImport = createFileRoute('/watch_blocks')()
 const SignmessageLazyImport = createFileRoute('/sign_message')()
 const SendethwithfillersLazyImport = createFileRoute('/send_eth_with_fillers')()
 const GetlatestblockLazyImport = createFileRoute('/get_latest_block')()
@@ -25,6 +26,11 @@ const GetaddressLazyImport = createFileRoute('/get_address')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const WatchblocksLazyRoute = WatchblocksLazyImport.update({
+  path: '/watch_blocks',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/watch_blocks.lazy').then((d) => d.Route))
 
 const SignmessageLazyRoute = SignmessageLazyImport.update({
   path: '/sign_message',
@@ -120,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignmessageLazyImport
       parentRoute: typeof rootRoute
     }
+    '/watch_blocks': {
+      id: '/watch_blocks'
+      path: '/watch_blocks'
+      fullPath: '/watch_blocks'
+      preLoaderRoute: typeof WatchblocksLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -133,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/get_latest_block': typeof GetlatestblockLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
+  '/watch_blocks': typeof WatchblocksLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -143,6 +157,7 @@ export interface FileRoutesByTo {
   '/get_latest_block': typeof GetlatestblockLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
+  '/watch_blocks': typeof WatchblocksLazyRoute
 }
 
 export interface FileRoutesById {
@@ -154,6 +169,7 @@ export interface FileRoutesById {
   '/get_latest_block': typeof GetlatestblockLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
+  '/watch_blocks': typeof WatchblocksLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -166,6 +182,7 @@ export interface FileRouteTypes {
     | '/get_latest_block'
     | '/send_eth_with_fillers'
     | '/sign_message'
+    | '/watch_blocks'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,6 +192,7 @@ export interface FileRouteTypes {
     | '/get_latest_block'
     | '/send_eth_with_fillers'
     | '/sign_message'
+    | '/watch_blocks'
   id:
     | '__root__'
     | '/'
@@ -184,6 +202,7 @@ export interface FileRouteTypes {
     | '/get_latest_block'
     | '/send_eth_with_fillers'
     | '/sign_message'
+    | '/watch_blocks'
   fileRoutesById: FileRoutesById
 }
 
@@ -195,6 +214,7 @@ export interface RootRouteChildren {
   GetlatestblockLazyRoute: typeof GetlatestblockLazyRoute
   SendethwithfillersLazyRoute: typeof SendethwithfillersLazyRoute
   SignmessageLazyRoute: typeof SignmessageLazyRoute
+  WatchblocksLazyRoute: typeof WatchblocksLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -205,6 +225,7 @@ const rootRouteChildren: RootRouteChildren = {
   GetlatestblockLazyRoute: GetlatestblockLazyRoute,
   SendethwithfillersLazyRoute: SendethwithfillersLazyRoute,
   SignmessageLazyRoute: SignmessageLazyRoute,
+  WatchblocksLazyRoute: WatchblocksLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -225,7 +246,8 @@ export const routeTree = rootRoute
         "/get_batch_balances",
         "/get_latest_block",
         "/send_eth_with_fillers",
-        "/sign_message"
+        "/sign_message",
+        "/watch_blocks"
       ]
     },
     "/": {
@@ -248,6 +270,9 @@ export const routeTree = rootRoute
     },
     "/sign_message": {
       "filePath": "sign_message.lazy.tsx"
+    },
+    "/watch_blocks": {
+      "filePath": "watch_blocks.lazy.tsx"
     }
   }
 }

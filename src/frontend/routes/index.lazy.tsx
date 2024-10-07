@@ -25,6 +25,9 @@ function Index() {
       <Link to="/send_eth_with_fillers">
         <button>send_eth_with_fillers()</button>
       </Link>
+      <Link to="/watch_blocks">
+        <button>watch_blocks()</button>
+      </Link>
     </div>
   );
 }
