@@ -28,6 +28,9 @@ function Index() {
       <Link to="/watch_blocks">
         <button>watch_blocks()</button>
       </Link>
+      <Link to="/watch_usdc_transfer">
+        <button>watch_usdc_transfer()</button>
+      </Link>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
 import Source from '../components/source'
 
-export const Route = createLazyFileRoute('/watch_blocks')({
+export const Route = createLazyFileRoute('/watch_usdc_transfer')({
   component: Page,
 })
 
@@ -12,24 +12,24 @@ function Page() {
   const {
     data: isPollingResult,
   } = useQuery({
-    queryKey: ['watch_blocks_is_polling'],
-    queryFn: () => backend.watch_blocks_is_polling(),
+    queryKey: ['watch_usdc_transfer_is_polling'],
+    queryFn: () => backend.watch_usdc_transfer_is_polling(),
     refetchInterval: 1000,
   })
 
   const {
     data: pollCountResult,
   } = useQuery({
-    queryKey: ['watch_blocks_poll_count'],
-    queryFn: () => backend.watch_blocks_poll_count(),
+    queryKey: ['watch_usdc_transfer_poll_count'],
+    queryFn: () => backend.watch_usdc_transfer_poll_count(),
     refetchInterval: 1000,
   })
 
   const {
     data: getResult,
   } = useQuery({
-    queryKey: ['watch_blocks_get'],
-    queryFn: () => backend.watch_blocks_get(),
+    queryKey: ['watch_usdc_transfer_get'],
+    queryFn: () => backend.watch_usdc_transfer_get(),
     refetchInterval: 1000,
   })
 
@@ -38,8 +38,8 @@ function Page() {
     isFetching: isFetchingStart,
     refetch: refetchStart,
   } = useQuery({
-    queryKey: ['watch_blocks_start'],
-    queryFn: () => backend.watch_blocks_start(),
+    queryKey: ['watch_usds_transfer_start'],
+    queryFn: () => backend.watch_usdc_transfer_start(),
     enabled: false
   })
 
@@ -48,8 +48,8 @@ function Page() {
     isFetching: isFetchingStop,
     refetch: refetchStop,
   } = useQuery({
-    queryKey: ['watch_blocks_stop'],
-    queryFn: () => backend.watch_blocks_stop(),
+    queryKey: ['watch_usdc_transfer_stop'],
+    queryFn: () => backend.watch_usdc_transfer_stop(),
     enabled: false
   })
 
@@ -62,36 +62,36 @@ function Page() {
         <button> Menu</button>
       </Link>
       <div className="card">
-        <p>Watch the EVM for the latest block numbers. Pushing the start button will tell the canister to create a poller that gets executed every 10 seconds.</p>
+        <p>Watch Base for latest USDC transfers. Pushing the start button will tell the canister to create a poller that gets executed every 10 seconds.</p>
 
         <p>
           {isPolling ?
-            `🟢 Watching for blocks, ${pollCount}/10`
+            `🟢 Watching for transfers, ${pollCount}/3`
             :
-            "🔴 Not watching for blocks"
+            "🔴 Not watching for transfers"
           }
         </p>
 
         <button onClick={() => void refetchStart()}>
-          {isFetchingStart ? 'Requesting…' : 'watch_blocks_start()'}
+          {isFetchingStart ? 'Requesting…' : 'watch_usdc_transfer_start()'}
         </button>
         {startResult && (
           <pre>{JSON.stringify(startResult, null, 2)}</pre>
         )}
 
         <button onClick={() => void refetchStop()}>
-          {isFetchingStop ? 'Requesting…' : 'watch_blocks_stop()'}
+          {isFetchingStop ? 'Requesting…' : 'watch_usdc_transfer_stop()'}
         </button>
         {stopResult && (
           <pre>{JSON.stringify(stopResult, null, 2)}</pre>
         )}
 
-        <p>Fetched block numbers, gets reset every time the start button is pushed.</p>
+        <p>Fetched transfer logs, gets reset every time the start button is pushed.</p>
 
         {getResult && (
           <pre>{JSON.stringify(getResult, null, 2)}</pre>
         )}
-        <Source file="watch_blocks.rs" />
+        <Source file="watch_usdc_transfer.rs" />
       </div >
     </>
   )

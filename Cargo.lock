@@ -246,6 +246,8 @@ dependencies = [
  "alloy-transport-http",
  "alloy-transport-icp",
  "futures",
+ "ic-cdk",
+ "ic-cdk-timers",
  "pin-project",
  "serde",
  "serde_json",
