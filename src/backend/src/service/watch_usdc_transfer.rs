@@ -6,15 +6,18 @@ use alloy::{
     primitives::address,
     providers::{Provider, ProviderBuilder},
     rpc::types::{Filter, Log},
+    sol,
+    sol_types::SolEvent,
     transports::icp::IcpConfig,
 };
 use ic_cdk_timers::TimerId;
+use USDC::Transfer;
 
 const POLL_LIMIT: usize = 3;
 
 struct State {
     timer_id: Option<TimerId>,
-    logs: Vec<Log>,
+    logs: Vec<String>,
     poll_count: usize,
 }
 
@@ -38,6 +41,14 @@ thread_local! {
     static STATE: RefCell<State> = RefCell::new(State::default());
 }
 
+// Codegen from ABI file to interact with the contract.
+sol!(
+    #[allow(missing_docs)]
+    #[sol(abi)]
+    USDC,
+    "abi/USDC.json"
+);
+
 /// Using the ICP poller for Alloy allows smart contract canisters
 /// to watch EVM blockchain changes easily. In this example, the canister
 /// watches for USDC transfer logs.
@@ -59,7 +70,21 @@ async fn watch_usdc_transfer_start() -> Result<String, String> {
     let callback = |incoming_logs: Vec<Log>| {
         STATE.with_borrow_mut(|state| {
             for log in incoming_logs.iter() {
-                state.logs.push(log.clone());
+                let transfer: Log<USDC::Transfer> = log.log_decode().unwrap();
+                let USDC::Transfer { from, to, value } = transfer.data();
+                let from_fmt = format!(
+                    "0x{}...{}",
+                    &from.to_string()[2..5],
+                    &from.to_string()[from.to_string().len() - 3..]
+                );
+                let to_fmt = format!(
+                    "0x{}...{}",
+                    &to.to_string()[2..5],
+                    &to.to_string()[to.to_string().len() - 3..]
+                );
+                state
+                    .logs
+                    .push(format!("{from_fmt} -> {to_fmt}: {value:?} USDC"));
             }
 
             state.poll_count += 1;
@@ -80,7 +105,7 @@ async fn watch_usdc_transfer_start() -> Result<String, String> {
         .address(usdt_token_address)
         // By specifying an `event` or `event_signature` we listen for a specific event of the
         // contract. In this case the `Transfer(address,address,uint256)` event.
-        .event("Transfer(address,address,uint256)")
+        .event(Transfer::SIGNATURE)
         .from_block(BlockNumberOrTag::Latest);
 
     // Initialize the poller and start watching

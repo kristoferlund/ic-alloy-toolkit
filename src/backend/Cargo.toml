@@ -9,6 +9,9 @@ crate-type = ["cdylib"]
 [dependencies]
 alloy = { path = "../../../ic-alloy/crates/alloy", default-features = false, features = [
   "icp",
+  "sol-types",
+  "json",
+  "contract"
 ] }
 candid = "0.10"
 ic-cdk = "0.16"
