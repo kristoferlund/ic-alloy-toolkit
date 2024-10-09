@@ -16,4 +16,9 @@ service : {
   watch_blocks_is_polling : () -> (Result_2) query;
   watch_blocks_poll_count : () -> (Result_4) query;
   watch_blocks_get : () -> (Result_3) query;
+  watch_usdc_transfer_start : () -> (Result);
+  watch_usdc_transfer_stop : () -> (Result);
+  watch_usdc_transfer_is_polling : () -> (Result_2) query;
+  watch_usdc_transfer_poll_count : () -> (Result_4) query;
+  watch_usdc_transfer_get : () -> (Result_3) query;
 }
