@@ -92,9 +92,10 @@ pre {
   margin: 0;
   width: 100%;
   white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  box-sizing: border-box;
+  word-break: break-all; 
+  overflow-wrap: anywhere; 
+  box-sizing: border-box; 
+  overflow-x: auto; 
 }
 
 #root {
@@ -123,10 +124,12 @@ pre {
   flex-direction: column;
   align-items: center;
   gap: 2em;
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
   border: #ffffff20 1px solid;
   border-radius: 10px;
   margin-bottom: 2em;
+  box-sizing: border-box;
 }
 
 .read-the-docs {
