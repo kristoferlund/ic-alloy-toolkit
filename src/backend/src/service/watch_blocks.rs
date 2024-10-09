@@ -1,6 +1,6 @@
 use std::{cell::RefCell, time::Duration};
 
-use crate::get_rpc_service;
+use crate::get_rpc_service_sepolia;
 use alloy::{
     primitives::FixedBytes,
     providers::{Provider, ProviderBuilder},
@@ -49,7 +49,7 @@ async fn watch_blocks_start() -> Result<String, String> {
         Ok(())
     })?;
 
-    let rpc_service = get_rpc_service();
+    let rpc_service = get_rpc_service_sepolia();
     let config = IcpConfig::new(rpc_service);
     let provider = ProviderBuilder::new().on_icp(config);
 
@@ -57,13 +57,11 @@ async fn watch_blocks_start() -> Result<String, String> {
     let callback = |incoming_blocks: Vec<FixedBytes<32>>| {
         STATE.with_borrow_mut(|state| {
             for block in incoming_blocks.iter() {
-                ic_cdk::println!("incoming block: {:?}", block);
                 state.blocks.push(*block);
             }
 
             state.poll_count += 1;
             if state.poll_count >= POLL_LIMIT {
-                ic_cdk::println!("CLEARING timer");
                 state.timer_id.take();
             }
         })
@@ -76,7 +74,7 @@ async fn watch_blocks_start() -> Result<String, String> {
     });
 
     // Initialize the poller and start watching
-    // `with_limit` (optional) is used to limit the number of blocks to poll, defaults to 3
+    // `with_limit` (optional) is used to limit the number of times to poll, defaults to 3
     // `with_poll_interval` (optional) is used to set the interval between polls, defaults to 7 seconds
     let poller = provider.watch_blocks().await.unwrap();
     let timer_id = poller

@@ -7,7 +7,7 @@ use alloy::{
     transports::icp::IcpConfig,
 };
 
-use crate::{create_icp_signer, get_rpc_service};
+use crate::{create_icp_signer, get_rpc_service_sepolia};
 
 /// This function will attempt to send 100 wei to the ethereum address of the canister.
 ///
@@ -21,7 +21,7 @@ use crate::{create_icp_signer, get_rpc_service};
 /// - `eth_estimateGas`: To determine the gas limit
 #[ic_cdk::update]
 async fn send_eth_with_fillers() -> Result<String, String> {
-    let rpc_service = get_rpc_service();
+    let rpc_service = get_rpc_service_sepolia();
     let signer = create_icp_signer().await;
     let config = IcpConfig::new(rpc_service);
     let address = signer.address();

@@ -6,10 +6,18 @@ use alloy::{
 };
 use ic_cdk::export_candid;
 
-fn get_rpc_service() -> RpcService {
+fn get_rpc_service_sepolia() -> RpcService {
     RpcService::Custom(RpcApi {
         url: "https://catts-evm-proxy-2.kristofer-977.workers.dev/eth-sepolia".to_string(),
-        //url: "https://9c9b-217-213-65-240.ngrok-free.app/eth-sepolia".to_string(),
+        // url: "https://7e89-217-213-64-8.ngrok-free.app/eth-sepolia".to_string(),
+        headers: None,
+    })
+}
+
+fn get_rpc_service_base() -> RpcService {
+    RpcService::Custom(RpcApi {
+        url: "https://catts-evm-proxy-2.kristofer-977.workers.dev/base-mainnet".to_string(),
+        // url: "https://7e89-217-213-64-8.ngrok-free.app/base-mainnet".to_string(),
         headers: None,
     })
 }

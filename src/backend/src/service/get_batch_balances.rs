@@ -5,11 +5,11 @@ use alloy::{
     transports::icp::IcpConfig,
 };
 
-use crate::get_rpc_service;
+use crate::get_rpc_service_sepolia;
 
 #[ic_cdk::update]
 async fn get_batch_balances(addresses: Vec<String>) -> Result<String, String> {
-    let rpc_service = get_rpc_service();
+    let rpc_service = get_rpc_service_sepolia();
     let config = IcpConfig::new(rpc_service);
     let client: IcpClient = ClientBuilder::default().icp(config);
     let mut batch = client.new_batch();
