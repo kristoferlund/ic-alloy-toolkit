@@ -84,7 +84,7 @@ async fn watch_usdc_transfer_start() -> Result<String, String> {
                 );
                 state
                     .logs
-                    .push(format!("{from_fmt} -> {to_fmt}: {value:?} USDC"));
+                    .push(format!("{from_fmt} -> {to_fmt}, value: {value:?}"));
             }
 
             state.poll_count += 1;
