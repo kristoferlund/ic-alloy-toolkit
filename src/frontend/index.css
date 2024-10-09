@@ -88,7 +88,7 @@ pre {
 
 .card {
   width: 100%;
-  max-width: 450px;
+  max-width: 600px;
   padding: 2em;
   display: flex;
   flex-direction: column;
