@@ -19,7 +19,7 @@ function Root() {
         </a>
       </div>
       <h1>Alloy + ICP</h1>
-      <p>This app is a toolbox to showcase examples on how to use Alloy in ICP canisters to simplify interactions with Ethereum. Every example is linked to its source, cut and paste into your project.</p>
+      <p>This app is a toolkit to showcase examples on how to use Alloy in ICP canisters to simplify interactions with Ethereum. Every example is linked to its source, cut and paste into your project.</p>
 
       <Outlet />
 
