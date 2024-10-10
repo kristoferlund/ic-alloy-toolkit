@@ -6,6 +6,7 @@ use alloy::{
 
 use crate::get_rpc_service_sepolia;
 
+/// Request the balance of an ETH account.
 #[ic_cdk::update]
 async fn get_balance(address: String) -> Result<String, String> {
     let address = address.parse::<Address>().map_err(|e| e.to_string())?;

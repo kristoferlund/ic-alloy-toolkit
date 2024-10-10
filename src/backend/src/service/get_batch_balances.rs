@@ -7,6 +7,8 @@ use alloy::{
 
 use crate::get_rpc_service_sepolia;
 
+/// Request the balances of multiple ETH accounts in one batch. Batch requests
+/// can contain different types of requests.
 #[ic_cdk::update]
 async fn get_batch_balances(addresses: Vec<String>) -> Result<String, String> {
     let rpc_service = get_rpc_service_sepolia();

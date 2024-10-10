@@ -30,7 +30,7 @@ function Page() {
       </Link>
       <div className="card">
         <p>
-          Request the balances of multiple ETH accounts in one batch. Bath
+          Request the balances of multiple ETH accounts in one batch. Batch
           requests can contain different types of requests.
         </p>
         <input

@@ -5,6 +5,7 @@ use alloy::{
 
 use crate::get_rpc_service_sepolia;
 
+/// Request the latest block from Eth Sepolia.
 #[ic_cdk::update]
 async fn get_latest_block() -> Result<String, String> {
     let rpc_service = get_rpc_service_sepolia();
