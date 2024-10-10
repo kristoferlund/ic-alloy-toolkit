@@ -19,7 +19,11 @@ function Root() {
         </a>
       </div>
       <h1>Alloy + ICP</h1>
-      <p>This app is a toolkit to showcase examples on how to use Alloy in ICP canisters to simplify interactions with Ethereum. Every example is linked to its source, cut and paste into your project.</p>
+      <p>This app is a toolkit to showcase examples on how to use{' '}
+        <a href="https://github.com/alloy-rs/alloy" target="_blank" rel="noreferrer">Alloy</a>{' '}
+        in ICP canisters to simplify interactions with Ethereum. It uses the{' '}
+        <a href="https://github.com/kristoferlund/ic-alloy" target="_blank" rel="noreferrer">ic-alloy</a>{' '}
+        fork that adds ICP as a signer and provider.</p>
 
       <Outlet />
 
