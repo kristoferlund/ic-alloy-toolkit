@@ -2,16 +2,18 @@ mod service;
 
 use alloy::{
     signers::icp::IcpSigner,
-    transports::icp::{RpcApi, RpcService},
+    transports::icp::{EthSepoliaService, RpcApi, RpcService},
 };
 use ic_cdk::export_candid;
 
 fn get_rpc_service_sepolia() -> RpcService {
-    RpcService::Custom(RpcApi {
-        url: "https://catts-evm-proxy-2.kristofer-977.workers.dev/eth-sepolia".to_string(),
-        // url: "https://7e89-217-213-64-8.ngrok-free.app/eth-sepolia".to_string(),
-        headers: None,
-    })
+    RpcService::EthSepolia(EthSepoliaService::Alchemy)
+
+    // RpcService::Custom(RpcApi {
+    //     url: "https://catts-evm-proxy-2.kristofer-977.workers.dev/eth-sepolia".to_string(),
+    //     // url: "https://7e89-217-213-64-8.ngrok-free.app/eth-sepolia".to_string(),
+    //     headers: None,
+    // })
 }
 
 fn get_rpc_service_base() -> RpcService {
