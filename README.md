@@ -40,7 +40,7 @@ async fn get_balance(address: String) -> Result<String, String> {
 }
 ```
 
-[get_balance.rs](blob/main/src/backend/src/service/get_balance.rs)
+[get_balance.rs](src/backend/src/service/get_balance.rs)
 
 ## Example, sign a message
 
@@ -53,7 +53,7 @@ async fn sign_message(message: String) -> Result<String, String> {
 }
 ```
 
-[sign_message.rs](blob/main/src/backend/src/service/sign_message.rs)
+[sign_message.rs](src/backend/src/service/sign_message.rs)
 
 ## Run locally
 
