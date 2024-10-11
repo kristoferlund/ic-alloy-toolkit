@@ -4,6 +4,7 @@ import { backend } from "../../backend/declarations";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Source from "../components/source";
+import Spinner from "../components/spinner";
 
 export const Route = createLazyFileRoute("/get_balance")({
   component: Page,
@@ -36,7 +37,7 @@ function Page() {
           value={ethAddress}
         />
         <button onClick={() => void refetchAccountBalance()}>
-          {isFetchingAccountBalance ? "Requesting…" : "get_balance(ethAddress)"}
+          {isFetchingAccountBalance ? <Spinner /> : "get_balance(ethAddress)"}
         </button>
         {accountBalanceResult && (
           <pre>{JSON.stringify(accountBalanceResult, null, 2)}</pre>

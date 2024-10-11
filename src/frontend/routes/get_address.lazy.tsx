@@ -3,6 +3,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router'
 import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
 import Source from '../components/source'
+import Spinner from '../components/spinner'
 
 export const Route = createLazyFileRoute('/get_address')({
   component: Page,
@@ -27,7 +28,7 @@ function Page() {
       <div className="card">
         <p>Get the Ethereum address of the backend canister.</p>
         <button onClick={() => void refetchAddress()}>
-          {isFetchingAddress ? 'Requesting…' : 'get_address()'}
+          {isFetchingAddress ? <Spinner /> : 'get_address()'}
         </button>
         {addressResult && (
           <pre>{JSON.stringify(addressResult, null, 2)}</pre>

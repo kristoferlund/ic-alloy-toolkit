@@ -4,6 +4,7 @@ import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import Source from '../components/source'
+import Spinner from '../components/spinner'
 
 export const Route = createLazyFileRoute('/sign_message')({
   component: Page,
@@ -36,7 +37,7 @@ function Page() {
           value={message}
         />
         <button onClick={() => void refetchSignature()}>
-          {isFetchingSignature ? 'Requesting…' : 'sign_message(message)'}
+          {isFetchingSignature ? <Spinner /> : 'sign_message(message)'}
         </button>
         {signatureResult && (
           <pre>{JSON.stringify(signatureResult, null, 2)}</pre>

@@ -3,6 +3,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router'
 import { backend } from '../../backend/declarations'
 import { useQuery } from '@tanstack/react-query'
 import Source from '../components/source'
+import Spinner from '../components/spinner'
 
 export const Route = createLazyFileRoute('/watch_blocks')({
   component: Page,
@@ -73,14 +74,14 @@ function Page() {
         </p>
 
         <button onClick={() => void refetchStart()}>
-          {isFetchingStart ? 'Requesting…' : 'watch_blocks_start()'}
+          {isFetchingStart ? <Spinner /> : 'watch_blocks_start()'}
         </button>
         {startResult && (
           <pre>{JSON.stringify(startResult, null, 2)}</pre>
         )}
 
         <button onClick={() => void refetchStop()}>
-          {isFetchingStop ? 'Requesting…' : 'watch_blocks_stop()'}
+          {isFetchingStop ? <Spinner /> : 'watch_blocks_stop()'}
         </button>
         {stopResult && (
           <pre>{JSON.stringify(stopResult, null, 2)}</pre>
