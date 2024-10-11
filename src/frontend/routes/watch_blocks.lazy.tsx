@@ -69,14 +69,14 @@ function Page() {
           }
         </p>
 
-        <button onClick={() => void start()}>
+        <button disabled={isFetchingStart} onClick={() => void start()}>
           {isFetchingStart ? <Spinner /> : 'watch_blocks_start()'}
         </button>
         {startResult && (
           <pre>{JSON.stringify(startResult, null, 2)}</pre>
         )}
 
-        <button onClick={() => void stop()}>
+        <button disabled={isFetchingStop} onClick={() => void stop()}>
           {isFetchingStop ? <Spinner /> : 'watch_blocks_stop()'}
         </button>
         {stopResult && (

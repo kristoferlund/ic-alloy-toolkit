@@ -68,14 +68,14 @@ function Page() {
           }
         </p>
 
-        <button onClick={() => void start()}>
+        <button disabled={isFetchingStart} onClick={() => void start()}>
           {isFetchingStart ? 'Requesting…' : 'watch_usdc_transfer_start()'}
         </button>
         {startResult && (
           <pre>{JSON.stringify(startResult, null, 2)}</pre>
         )}
 
-        <button onClick={() => void stop()}>
+        <button disabled={isFetchingStop} onClick={() => void stop()}>
           {isFetchingStop ? 'Requesting…' : 'watch_usdc_transfer_stop()'}
         </button>
         {stopResult && (

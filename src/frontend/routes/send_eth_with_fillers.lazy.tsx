@@ -38,7 +38,7 @@ function Page() {
         <p><i>If call fails due to lack of funds, top up the canister eth address with some SepoliaEth.</i></p>
         <p><i>Using Alloy fillers sends multiple requests to the RCP. This canister call can take up to a minute to complete, please be patient.</i></p>
         <p>Canister ETH balance: {isFetchingAccountBalance ? <Spinner /> : <b>{accountBalance} wei</b>}</p>
-        <button onClick={() => void sendTx()}>
+        <button disabled={isFetchingAccountBalance} onClick={() => void sendTx()}>
           {isSendingTx ? <Spinner /> : 'send_eth_with_fillers()'}
         </button>
         {txResult && <pre>{JSON.stringify(txResult, null, 2)}</pre>}

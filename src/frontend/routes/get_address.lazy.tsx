@@ -27,7 +27,7 @@ function Page() {
       </Link>
       <div className="card">
         <p>Get the Ethereum address of the backend canister.</p>
-        <button onClick={() => void refetchAddress()}>
+        <button disabled={isFetchingAddress} onClick={() => void refetchAddress()}>
           {isFetchingAddress ? <Spinner /> : 'get_address()'}
         </button>
         {addressResult && (

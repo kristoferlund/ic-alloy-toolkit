@@ -65,6 +65,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+button:disabled {
+  cursor: wait;
+  outline: none;
+  border-color: transparent;
+}
+
+button:disabled:hover {
+  border-color: transparent; /* Prevent hover border change when disabled */
+}
+
 input {
   width: 100%;
   padding: 0.6em 1.2em;

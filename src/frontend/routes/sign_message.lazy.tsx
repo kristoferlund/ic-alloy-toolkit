@@ -34,7 +34,7 @@ function Page() {
           onChange={(e) => setMessage(e.target.value)}
           value={message}
         />
-        <button onClick={() => void sign()}>
+        <button disabled={isFetchingSignature} onClick={() => void sign()}>
           {isFetchingSignature ? <Spinner /> : 'sign_message(message)'}
         </button>
         {signatureResult && (

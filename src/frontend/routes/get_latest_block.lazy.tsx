@@ -27,7 +27,7 @@ function Page() {
       </Link>
       <div className="card">
         <p>Request the latest block from Eth Sepolia.</p>
-        <button onClick={() => void refetchBlock()}>
+        <button disabled={isFetchingBlock} onClick={() => void refetchBlock()}>
           {isFetchingBlock ? <Spinner /> : "get_latest_block()"}
         </button>
         {latestBlockResult && (

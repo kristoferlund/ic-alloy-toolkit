@@ -36,7 +36,7 @@ function Page() {
           onChange={(e) => setEthAddress(e.target.value)}
           value={ethAddress}
         />
-        <button onClick={() => void refetchAccountBalance()}>
+        <button disabled={isFetchingAccountBalance} onClick={() => void refetchAccountBalance()}>
           {isFetchingAccountBalance ? <Spinner /> : "get_balance(ethAddress)"}
         </button>
         {accountBalanceResult && (

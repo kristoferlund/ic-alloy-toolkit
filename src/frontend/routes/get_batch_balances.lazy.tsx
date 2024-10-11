@@ -46,7 +46,7 @@ function Page() {
           onChange={(e) => setEthAddress2(e.target.value)}
           value={ethAddress2}
         />
-        <button onClick={() => void refetchAccountBalance()}>
+        <button disabled={isFetchingAccountBalance} onClick={() => void refetchAccountBalance()}>
           {isFetchingAccountBalance
             ? <Spinner /> : "get_batch_balances([address1, address2])"}
         </button>
