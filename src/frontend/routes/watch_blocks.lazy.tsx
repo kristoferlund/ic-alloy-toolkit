@@ -1,7 +1,7 @@
 import { Link, createLazyFileRoute } from '@tanstack/react-router'
 
 import { backend } from '../../backend/declarations'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import Source from '../components/source'
 import Spinner from '../components/spinner'
 
@@ -15,7 +15,7 @@ function Page() {
   } = useQuery({
     queryKey: ['watch_blocks_is_polling'],
     queryFn: () => backend.watch_blocks_is_polling(),
-    refetchInterval: 1000,
+    refetchInterval: 5000,
   })
 
   const {
@@ -23,7 +23,7 @@ function Page() {
   } = useQuery({
     queryKey: ['watch_blocks_poll_count'],
     queryFn: () => backend.watch_blocks_poll_count(),
-    refetchInterval: 1000,
+    refetchInterval: 5000,
   })
 
   const {
@@ -31,27 +31,23 @@ function Page() {
   } = useQuery({
     queryKey: ['watch_blocks_get'],
     queryFn: () => backend.watch_blocks_get(),
-    refetchInterval: 1000,
+    refetchInterval: 5000,
   })
 
   const {
     data: startResult,
-    isFetching: isFetchingStart,
-    refetch: refetchStart,
-  } = useQuery({
-    queryKey: ['watch_blocks_start'],
-    queryFn: () => backend.watch_blocks_start(),
-    enabled: false
+    isPending: isFetchingStart,
+    mutate: start,
+  } = useMutation({
+    mutationFn: () => backend.watch_blocks_start(),
   })
 
   const {
     data: stopResult,
-    isFetching: isFetchingStop,
-    refetch: refetchStop,
-  } = useQuery({
-    queryKey: ['watch_blocks_stop'],
-    queryFn: () => backend.watch_blocks_stop(),
-    enabled: false
+    isPending: isFetchingStop,
+    mutate: stop,
+  } = useMutation({
+    mutationFn: () => backend.watch_blocks_stop(),
   })
 
   const isPolling = isPollingResult && 'Ok' in isPollingResult && isPollingResult.Ok === true;
@@ -73,14 +69,14 @@ function Page() {
           }
         </p>
 
-        <button onClick={() => void refetchStart()}>
+        <button onClick={() => void start()}>
           {isFetchingStart ? <Spinner /> : 'watch_blocks_start()'}
         </button>
         {startResult && (
           <pre>{JSON.stringify(startResult, null, 2)}</pre>
         )}
 
-        <button onClick={() => void refetchStop()}>
+        <button onClick={() => void stop()}>
           {isFetchingStop ? <Spinner /> : 'watch_blocks_stop()'}
         </button>
         {stopResult && (

@@ -1,10 +1,10 @@
 import { Link, createLazyFileRoute } from '@tanstack/react-router'
 
 import { backend } from '../../backend/declarations'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import Source from '../components/source'
 import Spinner from '../components/spinner'
+import { useMutation } from '@tanstack/react-query'
 
 export const Route = createLazyFileRoute('/sign_message')({
   component: Page,
@@ -15,12 +15,10 @@ function Page() {
 
   const {
     data: signatureResult,
-    isFetching: isFetchingSignature,
-    refetch: refetchSignature,
-  } = useQuery({
-    queryKey: ['signature', message],
-    queryFn: () => backend.sign_message(message),
-    enabled: false,
+    isPending: isFetchingSignature,
+    mutate: sign
+  } = useMutation({
+    mutationFn: () => backend.sign_message(message),
   })
 
   return (
@@ -36,7 +34,7 @@ function Page() {
           onChange={(e) => setMessage(e.target.value)}
           value={message}
         />
-        <button onClick={() => void refetchSignature()}>
+        <button onClick={() => void sign()}>
           {isFetchingSignature ? <Spinner /> : 'sign_message(message)'}
         </button>
         {signatureResult && (
