@@ -48,10 +48,7 @@ fn get_ecdsa_key_name() -> String {
 
 async fn create_icp_sepolia_signer() -> IcpSigner {
     let ecdsa_key_name = get_ecdsa_key_name();
-    let chain_id = 11155111;
-    IcpSigner::new(vec![], &ecdsa_key_name, Some(chain_id))
-        .await
-        .unwrap()
+    IcpSigner::new(vec![], &ecdsa_key_name, None).await.unwrap()
 }
 
 export_candid!();

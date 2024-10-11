@@ -47,7 +47,8 @@ async fn get_balance(address: String) -> Result<String, String> {
 ```Rust
 #[ic_cdk::update]
 async fn sign_message(message: String) -> Result<String, String> {
-    let signer = create_icp_signer().await;
+    let ecdsa_key_name = "key_1".to_string();
+    IcpSigner::new(vec![], &ecdsa_key_name, None)).await.unwrap();
     let signature = signer.sign_message(message.as_bytes()).await.unwrap();
     Ok(format!("{:?}", signature))
 }
