@@ -18,7 +18,7 @@ function Page() {
     refetch: refetchAccountBalance,
   } = useQuery({
     queryKey: ["accountBalance", ethAddress],
-    queryFn: () => backend.get_balance(ethAddress),
+    queryFn: () => backend.get_balance([ethAddress]),
     enabled: false,
   });
 
