@@ -22,6 +22,9 @@ function Index() {
       <Link to="/sign_message">
         <button>sign_message(message)</button>
       </Link>
+      <Link to="/send_eth">
+        <button>send_eth()</button>
+      </Link>
       <Link to="/send_eth_with_fillers">
         <button>send_eth_with_fillers()</button>
       </Link>

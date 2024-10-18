@@ -8,6 +8,7 @@ service : {
   get_balance : (opt text) -> (Result);
   get_batch_balances : (vec text) -> (Result);
   get_latest_block : () -> (Result);
+  send_eth : () -> (Result);
   send_eth_with_fillers : () -> (Result);
   sign_message : (text) -> (Result);
   watch_contract_event : () -> (Result);

@@ -20,6 +20,7 @@ const WatchusdctransferLazyImport = createFileRoute('/watch_usdc_transfer')()
 const WatchblocksLazyImport = createFileRoute('/watch_blocks')()
 const SignmessageLazyImport = createFileRoute('/sign_message')()
 const SendethwithfillersLazyImport = createFileRoute('/send_eth_with_fillers')()
+const SendethLazyImport = createFileRoute('/send_eth')()
 const GetlatestblockLazyImport = createFileRoute('/get_latest_block')()
 const GetbatchbalancesLazyImport = createFileRoute('/get_batch_balances')()
 const GetbalanceLazyImport = createFileRoute('/get_balance')()
@@ -51,6 +52,11 @@ const SendethwithfillersLazyRoute = SendethwithfillersLazyImport.update({
 } as any).lazy(() =>
   import('./routes/send_eth_with_fillers.lazy').then((d) => d.Route),
 )
+
+const SendethLazyRoute = SendethLazyImport.update({
+  path: '/send_eth',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/send_eth.lazy').then((d) => d.Route))
 
 const GetlatestblockLazyRoute = GetlatestblockLazyImport.update({
   path: '/get_latest_block',
@@ -120,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetlatestblockLazyImport
       parentRoute: typeof rootRoute
     }
+    '/send_eth': {
+      id: '/send_eth'
+      path: '/send_eth'
+      fullPath: '/send_eth'
+      preLoaderRoute: typeof SendethLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/send_eth_with_fillers': {
       id: '/send_eth_with_fillers'
       path: '/send_eth_with_fillers'
@@ -159,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth': typeof SendethLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
   '/watch_blocks': typeof WatchblocksLazyRoute
@@ -171,6 +185,7 @@ export interface FileRoutesByTo {
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth': typeof SendethLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
   '/watch_blocks': typeof WatchblocksLazyRoute
@@ -184,6 +199,7 @@ export interface FileRoutesById {
   '/get_balance': typeof GetbalanceLazyRoute
   '/get_batch_balances': typeof GetbatchbalancesLazyRoute
   '/get_latest_block': typeof GetlatestblockLazyRoute
+  '/send_eth': typeof SendethLazyRoute
   '/send_eth_with_fillers': typeof SendethwithfillersLazyRoute
   '/sign_message': typeof SignmessageLazyRoute
   '/watch_blocks': typeof WatchblocksLazyRoute
@@ -198,6 +214,7 @@ export interface FileRouteTypes {
     | '/get_balance'
     | '/get_batch_balances'
     | '/get_latest_block'
+    | '/send_eth'
     | '/send_eth_with_fillers'
     | '/sign_message'
     | '/watch_blocks'
@@ -209,6 +226,7 @@ export interface FileRouteTypes {
     | '/get_balance'
     | '/get_batch_balances'
     | '/get_latest_block'
+    | '/send_eth'
     | '/send_eth_with_fillers'
     | '/sign_message'
     | '/watch_blocks'
@@ -220,6 +238,7 @@ export interface FileRouteTypes {
     | '/get_balance'
     | '/get_batch_balances'
     | '/get_latest_block'
+    | '/send_eth'
     | '/send_eth_with_fillers'
     | '/sign_message'
     | '/watch_blocks'
@@ -233,6 +252,7 @@ export interface RootRouteChildren {
   GetbalanceLazyRoute: typeof GetbalanceLazyRoute
   GetbatchbalancesLazyRoute: typeof GetbatchbalancesLazyRoute
   GetlatestblockLazyRoute: typeof GetlatestblockLazyRoute
+  SendethLazyRoute: typeof SendethLazyRoute
   SendethwithfillersLazyRoute: typeof SendethwithfillersLazyRoute
   SignmessageLazyRoute: typeof SignmessageLazyRoute
   WatchblocksLazyRoute: typeof WatchblocksLazyRoute
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   GetbalanceLazyRoute: GetbalanceLazyRoute,
   GetbatchbalancesLazyRoute: GetbatchbalancesLazyRoute,
   GetlatestblockLazyRoute: GetlatestblockLazyRoute,
+  SendethLazyRoute: SendethLazyRoute,
   SendethwithfillersLazyRoute: SendethwithfillersLazyRoute,
   SignmessageLazyRoute: SignmessageLazyRoute,
   WatchblocksLazyRoute: WatchblocksLazyRoute,
@@ -268,6 +289,7 @@ export const routeTree = rootRoute
         "/get_balance",
         "/get_batch_balances",
         "/get_latest_block",
+        "/send_eth",
         "/send_eth_with_fillers",
         "/sign_message",
         "/watch_blocks",
@@ -288,6 +310,9 @@ export const routeTree = rootRoute
     },
     "/get_latest_block": {
       "filePath": "get_latest_block.lazy.tsx"
+    },
+    "/send_eth": {
+      "filePath": "send_eth.lazy.tsx"
     },
     "/send_eth_with_fillers": {
       "filePath": "send_eth_with_fillers.lazy.tsx"

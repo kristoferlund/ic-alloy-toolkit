@@ -19,6 +19,17 @@ use crate::{create_icp_sepolia_signer, get_rpc_service_sepolia};
 /// - `eth_chainId`: To determine the chain id
 /// - `eth_feeHistory`: To determine historic gas price
 /// - `eth_estimateGas`: To determine the gas limit
+/// - `eth_sendRawTransaction`: The transaction
+/// - `eth_getTransactionByHash`: To determine if transaction was successful. Increment nonce only
+/// if transaction was successful.
+///
+/// Using `with_recommended_fillers` is only recommended if you use a deduplication proxy between
+/// the EVM RPC canister and the RPC service (Alchemy, etc). When making an EVM RPC call on IC,
+/// that call is executed by all the nodes in the subnet, currently 34 on the subnet where the
+/// EVM RPC canister resides. Usinf this example without a deduplication proxy would result in
+/// 6 x 34 = 204 calls being made during the span of a few seconds. That most likely leads to the
+/// ceiling of number of requests per second being hit and the RPC provider responding with an
+/// error.
 #[ic_cdk::update]
 async fn send_eth_with_fillers() -> Result<String, String> {
     let rpc_service = get_rpc_service_sepolia();
