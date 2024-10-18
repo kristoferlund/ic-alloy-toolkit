@@ -32,12 +32,14 @@ use crate::{create_icp_sepolia_signer, get_rpc_service_sepolia};
 /// error.
 #[ic_cdk::update]
 async fn send_eth_with_fillers() -> Result<String, String> {
-    let rpc_service = get_rpc_service_sepolia();
+    // Setup signer
     let signer = create_icp_sepolia_signer().await;
-    let config = IcpConfig::new(rpc_service);
     let address = signer.address();
-    let wallet = EthereumWallet::from(signer);
 
+    // Setup provider
+    let wallet = EthereumWallet::from(signer);
+    let rpc_service = get_rpc_service_sepolia();
+    let config = IcpConfig::new(rpc_service);
     let provider = ProviderBuilder::new()
         .with_recommended_fillers()
         .wallet(wallet)
@@ -51,8 +53,11 @@ async fn send_eth_with_fillers() -> Result<String, String> {
     match transport_result {
         Ok(builder) => {
             let node_hash = *builder.tx_hash();
-            let pending_tx = provider.get_transaction_by_hash(node_hash).await.unwrap();
-            Ok(format!("{:?}", pending_tx))
+            let tx_response = provider.get_transaction_by_hash(node_hash).await.unwrap();
+            match tx_response {
+                Some(tx) => Ok(format!("{:?}", tx)),
+                None => Err("Could not get transaction.".to_string()),
+            }
         }
         Err(e) => Err(format!("{:?}", e)),
     }
